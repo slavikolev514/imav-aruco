@@ -131,6 +131,27 @@ int main(int argc, char *argv[]) {
         double distance_from_cam = cv::norm(tvecs);
         cout << "Distance from camera (m): " << distance_from_cam << endl; // distance in meters
 
+        // TODO: SLY yaw and pitch of the marker relative to camera axis
+
+        // Check we have at least one marker
+        if (!tvecs.empty()) {
+            // Use first marker
+            cv::Vec3d t = tvecs[0];
+
+            double tx = t[0];
+            double ty = t[1];
+            double tz = t[2];
+
+            // angles
+            // yaw - horizontal angle (left/right)
+            double yaw = std::atan2(tx, tz) * 180.0 / CV_PI;
+
+            // pitch - vertical angle (up/down)
+            double pitch = std::atan2(ty, tz) * 180.0 / CV_PI;
+
+            std::cout << "Yaw angle (deg): "   << yaw   << std::endl;
+            std::cout << "Pitch angle (deg): " << pitch << std::endl;
+        }
 
         //! [aruco_pose_estimation3]
         double currentTime = ((double)getTickCount() - tick) / getTickFrequency();
