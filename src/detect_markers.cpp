@@ -126,6 +126,12 @@ int main(int argc, char *argv[]) {
                 solvePnP(objPoints, corners.at(i), camMatrix, distCoeffs, rvecs.at(i), tvecs.at(i));
             }
         }
+
+        // TODO: SLY distance from camera
+        double distance_from_cam = cv::norm(tvecs);
+        cout << "Distance from camera (m): " << distance_from_cam << endl; // distance in meters
+
+
         //! [aruco_pose_estimation3]
         double currentTime = ((double)getTickCount() - tick) / getTickFrequency();
         totalTime += currentTime;
